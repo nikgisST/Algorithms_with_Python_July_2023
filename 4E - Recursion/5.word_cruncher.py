@@ -1,22 +1,22 @@
-def word_cruncher(idx, words_by_idx, words_count, used_words):
-    if len(''.join(used_words)) >= len(target_word):
+def find_all_solutions(idx, target_word, words_by_idx, words_count, used_words):
+    if idx >= len(target_word):     # дъно на рекурсията
         print(' '.join(used_words))
         return
 
     if idx not in words_by_idx:
         return
 
-    for current_word in words_by_idx[idx]:
-        if words_count[current_word] == 0:
+    for word in words_by_idx[idx]:
+        if words_count[word] == 0:      # нямам дума, която мога да сложа на този индекс
             continue
 
-        used_words.append(current_word)
-        words_count[current_word] -= 1
+        used_words.append(word)     # добавяме всяка дума
+        words_count[word] -= 1
 
-        word_cruncher(idx + len(current_word), words_by_idx, words_count, used_words)
+        find_all_solutions(idx + len(word), target_word, words_by_idx, words_count, used_words)
 
-        used_words.pop()
-        words_count[current_word] += 1
+        used_words.pop()    # backtracking  махаме думата, след кочто няма подходяща, че да продължим
+        words_count[word] += 1
 
 
 words = input().split(', ')
@@ -34,7 +34,7 @@ for word in words:
     try:
         idx = 0
         while True:
-            idx = target_word.index(word, idx)
+            idx = target_word.index(word, idx)   # 'word'.index('rd') --> 2
 
             if idx not in words_by_idx:
                 words_by_idx[idx] = []
@@ -43,4 +43,4 @@ for word in words:
     except ValueError:
         pass
 
-word_cruncher(0, words_by_idx, words_count, [])
+find_all_solutions(0, target_word, words_by_idx, words_count, [])
