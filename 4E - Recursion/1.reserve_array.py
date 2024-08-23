@@ -1,3 +1,19 @@
+def reverse_array(idx, elements):
+    if idx == len(elements) // 2:  # base case
+        return
+
+    swap_idx = len(elements) - 1 - idx  
+    elements[idx], elements[swap_idx] = elements[swap_idx], elements[idx]  # pre-action
+    reverse_array(idx + 1, elements)  # recursive call
+
+
+elements = input().split()
+reverse_array(0, elements)
+print(*elements)
+
+#########################################################
+
+
 def reverse_array(array, reversed_array):
     if not array:   # base case
         print(' '.join(reversed_array))
