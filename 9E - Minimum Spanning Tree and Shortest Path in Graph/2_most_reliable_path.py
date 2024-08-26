@@ -1,6 +1,11 @@
 from collections import deque
 from queue import PriorityQueue
 
+# class Node:
+#     def __init__(self, value, distance):
+#         pass
+#     def __gt__(self, other):
+#         return self.distance > other.distance
 
 class Edge:
     def __init__(self, first, second, weight):
@@ -11,9 +16,8 @@ class Edge:
 
 nodes = int(input())
 edges = int(input())
-
 graph = []
-[graph.append([]) for _ in range(nodes)]
+[graph.append([]) for _ in range(nodes)]    # [None, None, None, None, None, None, None]  === count of nodes
 
 for _ in range(edges):
     first, second, weight = [int(x) for x in input().split()]
@@ -24,13 +28,13 @@ for _ in range(edges):
 start_node = int(input())
 target_node = int(input())
 
+pq = PriorityQueue()
+pq.put((-100, start_node))   # -100 е началната дистанция за стартовия node
+
 distance = [float('-inf')] * nodes
 distance[start_node] = 100
 
 parent = [None] * nodes
-
-pq = PriorityQueue()
-pq.put((-100, start_node))
 
 while not pq.empty():
     max_distance, node = pq.get()
@@ -40,11 +44,11 @@ while not pq.empty():
 
     for edge in graph[node]:
         child = edge.second if edge.first == node else edge.first
-        new_distance = -max_distance * edge.weight / 100
+        new_distance = -max_distance * edge.weight / 100    # -max_distance - минусът го обръщаме на плюс
         if new_distance > distance[child]:
             distance[child] = new_distance
             parent[child] = node
-            pq.put((-new_distance, child))
+            pq.put((-new_distance, child))   # -max_distance - а като влизат в опашката ги обръщаме с минус
 
 print(f'Most reliable path reliability: {distance[target_node]:.2f}%')
 
