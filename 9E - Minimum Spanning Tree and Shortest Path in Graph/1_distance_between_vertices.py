@@ -1,60 +1,56 @@
 from collections import deque
 
 
-def find_parent_by_node(start, end, graph):
-    visited = [False] * len(graph)
-    parent = [None] * len(graph)
-
-    visited[start] = True
-    queue = deque([start])
+def find_shortest_path(graph, source, destination):    # BFS with dictionary
+    queue = deque([source])
+    visited = {source}
+    parent = {source: None}
 
     while queue:
         node = queue.popleft()
 
-        if node == end:
+        if node == destination:
             break
 
         for child in graph[node]:
-            if visited[child]:
+            if child in visited:
                 continue
 
-            visited[child] = True
             queue.append(child)
+            visited.add(child)
             parent[child] = node
     return parent
 
 
-def calculate_path(parent, end):
-    path_weight = 0
-    node = end
+def find_path_size(parent, destination):
+    node = destination
+    size = 0
 
     while node is not None:
-        path_weight += 1
         node = parent[node]
-    return path_weight - 1
+        size += 1
+    return size - 1
 
 
-nodes_count = int(input())
-pairs_count = int(input())
+nodes = int(input())
+pairs = int(input())
+graph = {}
 
-graph = []
-[graph.append([]) for _ in range(nodes_count + 1)]
-
-for _ in range(nodes_count):
-    line = input().split(':')
-    source = int(line[0])
-    destinations = [int(x) for x in line[1].split()] if line[1] else []
-    graph[source] = destinations
+for _ in range(nodes):
+    nodes_str, children_str = input().split(':')
+    node = int(nodes_str)
+    children = [int(x) for x in children_str.split()] if children_str else []
+    graph[node] = children
 
 
-for _ in range(pairs_count):
-    start, end = [int(x) for x in input().split('-')]
+for _ in range(pairs):
+    source, destination = [int(x) for x in input().split('-')]
 
-    parent = find_parent_by_node(start, end, graph)
+    parent = find_shortest_path(graph, source, destination)
 
-    if parent[end] is None:
-        print(f'{{{start}, {end}}} -> -1')
+    if destination not in parent:
+        print(f'{{{source}, {destination}}} -> -1')
+        continue
 
-    else:
-        path_size = calculate_path(parent, end)
-        print(f'{{{start}, {end}}} -> {path_size}')
+    size = find_path_size(parent, destination)
+    print(f'{{{source}, {destination}}} -> {size}')
