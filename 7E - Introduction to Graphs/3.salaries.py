@@ -1,4 +1,4 @@
-def dfs(employee, graph, salaries):
+def dfs(employee, graph, salaries):       # employee === node
     if salaries[employee] is not None:
         return salaries[employee]
 
@@ -14,22 +14,21 @@ def dfs(employee, graph, salaries):
     return salary
 
 
-employees_count = int(input())
+nodes = int(input())    # employees count
 graph = []
 
-for _ in range(employees_count):
+for _ in range(nodes):
     line = input()
     children = []
     for idx, state in enumerate(line):
         if state == 'Y':
             children.append(idx)
-
     graph.append(children)
 
-salaries = [None] * employees_count
+salaries = [None] * nodes
 total_salary = 0
 
-for employee in range(employees_count):
+for employee in range(nodes):
     current_salary = dfs(employee, graph, salaries)
     total_salary += current_salary
 
