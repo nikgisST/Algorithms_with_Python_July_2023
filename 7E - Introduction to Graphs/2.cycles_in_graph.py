@@ -1,4 +1,4 @@
-def dfs(node, graph, visited, cycles): #Solution with DFS
+def dfs(node, graph, visited, cycles):   # topological sorting: DFS algorithm + cycle detection
     if node in cycles:
         raise Exception
     if node in visited:
@@ -33,14 +33,14 @@ try:
     for node in graph:
         dfs(node, graph, visited, set())
     print('Acyclic: Yes ')
-    
+
 except Exception:
     print('Acyclic: No')
 
 
 ###########################################################################################
 
-def find_dependencies(graph):
+def find_dependencies(graph):   # topological sorting: source removal algorithm
     result = {}
 
     for node, childs in graph.items():
