@@ -20,17 +20,17 @@ def path_exists(source, destination, graph):
 
 nodes = int(input())
 graph = {}
-
 edges = []
 for _ in range(nodes):
-    node, childs = input().split(' -> ')
-    graph[node] = [x for x in childs.split()]
-    for child in childs.split():
+    node, children_str = input().split(' -> ')
+    children = children_str.split()
+    graph[node] = children
+    for child in children:
         edges.append((node, child))
 
 removed_edges = []
 
-for source, destination in sorted(edges, key=lambda t: (t[0], t[1])):
+for source, destination in sorted(edges, key=lambda x: (x[0], x[1])):
     if destination not in graph[source] or source not in graph[destination]:
         continue
 
@@ -44,4 +44,6 @@ for source, destination in sorted(edges, key=lambda t: (t[0], t[1])):
         graph[destination].append(source)
 
 print(f'Edges to remove: {len(removed_edges)}')
-[print(f'{source} - {destination}') for source, destination in removed_edges]
+#[print(f'{source} - {destination}') for source, destination in removed_edges]
+for source, destination in removed_edges:
+    print(f'{source} - {destination}')
