@@ -1,3 +1,45 @@
+def dfs(node, graph, visited, cycles): #Solution with DFS
+    if node in cycles:
+        raise Exception
+    if node in visited:
+        return
+
+    visited.add(node)
+    cycles.add(node)
+
+    for child in graph[node]:
+        dfs(child, graph, visited, cycles)
+
+    cycles.remove(node)
+
+
+graph = {}
+while True:
+    line = input()
+    if line == 'End':
+        break
+
+    source, destination = line.split('-')
+    if source not in graph:     # KEY
+        graph[source] = []
+    if destination not in graph:   # VALUE
+        graph[destination] = []
+
+    graph[source].append(destination)
+
+visited = set()
+
+try:
+    for node in graph:
+        dfs(node, graph, visited, set())
+    print('Acyclic: Yes ')
+    
+except Exception:
+    print('Acyclic: No')
+
+
+###########################################################################################
+
 def find_dependencies(graph):
     result = {}
 
@@ -10,7 +52,6 @@ def find_dependencies(graph):
                 result[child] = 1
             else:
                 result[child] += 1
-
     return result
 
 
@@ -18,15 +59,12 @@ def find_node_without_dependencies(dependencies):
     for node, depend in dependencies.items():
         if depend == 0:
             return node
-
     return None
 
 
 graph = {}
-
 while True:
     line = input()
-
     if line == 'End':
         break
 
@@ -49,61 +87,9 @@ while dependencies:
     if node_to_remove in graph:
         for child in graph[node_to_remove]:
             dependencies[child] -= 1
-
     dependencies.pop(node_to_remove)
 
 if has_cycle:
     print('Acyclic: No')
 else:
     print('Acyclic: Yes')
-
-
-
-##############################################################################
-
-
-
-Solution with DFS
-
-def dfs(node, graph, visited, path):
-    if node in path:
-        raise Exception
-
-    if node in visited:
-        return
-
-    visited.add(node)
-    path.add(node)
-
-    for child in graph[node]:
-        dfs(child, graph, visited, path)
-
-    path.remove(node)
-
-
-graph = {}
-
-while True:
-    line = input()
-
-    if line == 'End':
-        break
-
-    source, destination = line.split('-')
-    if source not in graph:
-        graph[source] = []
-    if destination not in graph:
-        graph[destination] = []
-
-    graph[source].append(destination)
-
-visited = set()
-
-try:
-    for node in graph:
-        dfs(node, graph, visited, set())
-
-    print('Acyclic: Yes ')
-
-except Exception:
-    print('Acyclic: No')
