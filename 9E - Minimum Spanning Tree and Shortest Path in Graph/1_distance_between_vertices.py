@@ -1,4 +1,4 @@
-from collections import deque
+from collections import deque       # shortest paths in graph: Unweighted Graph
 
 
 def find_shortest_path(graph, source, destination):    # BFS with dictionary
