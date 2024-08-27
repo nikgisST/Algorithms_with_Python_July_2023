@@ -1,6 +1,4 @@
-# side_a = input().split()         # Longest Common Subsequence
-# side_b = list(sorted(side_a))
-cables = [int(x) for x in input().split()]
+cables = [int(x) for x in input().split()]     # Longest Common Subsequence
 
 size = len(cables) + 1
 positions = [pos for pos in range(1, size)]
