@@ -1,4 +1,4 @@
-def dfs(parent, row, col, matrix, visited):
+def dfs(parent, row, col, matrix, visited):   # recursive DFS traversal
     if row < 0 or row >= len(matrix) or col < 0 or col >= len(matrix[0]):
         return
 
