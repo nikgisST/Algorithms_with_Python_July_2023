@@ -1,42 +1,37 @@
-Solved with Kruskal algorithm
-
-def find_root(parent, node):
-    while node != parent[node]:
+def find_root(parent, node):       # Kruskal's algorithm
+    while node != parent[node]:   # parent for 3 is 2 (p[3] = 2), for 2 is 0 (p[2] = 0) and for 0 is 0 (p[0] = 0)
         node = parent[node]
     return node
 
 
-towns_count = int(input())
-roads_count = int(input())
-
+nodes = int(input())
+edges = int(input())
 graph = []
 
-for _ in range(roads_count):
+for _ in range(edges):
     first, second, weight = [int(x) for x in input().split(' - ')]
     graph.append((first, second, weight))
 
-parent = [n for n in range(towns_count)]
+parent = [n for n in range(nodes)]   # нашите сомостоятелни дървета в началото, всеки един node е дърво само по себе си
 total_cost = 0
 
-for first, second, weight in sorted(graph, key=lambda e: e[2]):
-    first_node_root = find_root(parent, first)
-    second_node_root = find_root(parent, second)
+for first, second, weight in sorted(graph, key=lambda e: e[2]):  #сортиране на рбрата по възходящ ред, first, second, weight - this is unpacked tuple === edges - this is packed tuple
+    first_node_root = find_root(parent, first)    # две отделни дървета
+    second_node_root = find_root(parent, second)  # две отделни дървета
 
-    if first_node_root != second_node_root:
-        parent[first_node_root] = second_node_root
-        total_cost += weight
+    if first_node_root == second_node_root: # ако двете стойности са еднакви, имаме едно и също дърво
+        continue
+    parent[first_node_root] = second_node_root  # ако са различни, имаме две отделни дървета и ги събираме в едно
+    total_cost += weight    # това ребро е част от минимално покриващото дърво
+    #print(first, second, weight)
 
 print(f'Total cost: {total_cost}')
 
 
-
-######################################################################
-
+############################################################################################################
 
 
-Solved with Prim's Algorithm
-
-from queue import PriorityQueue
+from queue import PriorityQueue    # Prim's algorithm
 
 
 class Edge:
