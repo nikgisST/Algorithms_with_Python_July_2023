@@ -1,4 +1,4 @@
-from collections import deque       # shortest paths in graph: Dijkstra's algorithm
+from collections import deque          # shortest paths in graph: Dijkstra's algorithm
 from queue import PriorityQueue
 
 # class Node:
@@ -6,7 +6,7 @@ from queue import PriorityQueue
 #         pass
 #     def __gt__(self, other):
 #         return self.distance > other.distance
-
+####################### Kruskal's ###########################
 class Edge:
     def __init__(self, first, second, weight):
         self.first = first
@@ -27,21 +27,17 @@ for _ in range(edges):
 
 start_node = int(input())
 target_node = int(input())
-
 pq = PriorityQueue()
 pq.put((-100, start_node))   # -100 е началната дистанция за стартовия node
 
 distance = [float('-inf')] * nodes
 distance[start_node] = 100
-
 parent = [None] * nodes
 
 while not pq.empty():
     max_distance, node = pq.get()
-
     if node == target_node:
         break
-
     for edge in graph[node]:
         child = edge.second if edge.first == node else edge.first
         new_distance = -max_distance * edge.weight / 100    # -max_distance - минусът го обръщаме на плюс
@@ -49,7 +45,7 @@ while not pq.empty():
             distance[child] = new_distance
             parent[child] = node
             pq.put((-new_distance, child))   # -max_distance - а като влизат в опашката ги обръщаме с минус
-
+####################### Kruskal's ###########################
 print(f'Most reliable path reliability: {distance[target_node]:.2f}%')
 
 path = deque()
