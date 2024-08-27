@@ -14,4 +14,5 @@ for row in range(1, size):
         else:
             lcs[row][col] = max(lcs[row][col - 1], lcs[row - 1][col])  # иначе гледаме и в единия, и в другия и взимаме най-големият с общи преднидни елементи
 
-print(f'Maximum pairs connected: {lcs[-1][-1]}')
+#print(f'Maximum pairs connected: {lcs[-1][-1]}')
+print(f'Maximum pairs connected: {lcs[size - 1][size - 1]}')
