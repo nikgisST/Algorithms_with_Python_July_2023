@@ -2,10 +2,10 @@ from queue import PriorityQueue
 
 ####################### Prim's ###########################
 class Edge:
-    def __init__(self, start, end, weight):
+    def __init__(self, start, end, edge_value):
         self.first = start
         self.second = end
-        self.weight = weight
+        self.weight = edge_value
 
     def __gt__(self, other):
         return self.weight > other.weight
@@ -23,7 +23,7 @@ graph = []
 for _ in range(edges):
     edge_data = input().split()
     first, second, weight = int(edge_data[0]), int(edge_data[1]), int(edge_data[2])
-    
+
     edge = Edge(first, second, int(weight))
     graph[first].append(edge)
     graph[second].append(edge)
@@ -33,7 +33,7 @@ for _ in range(edges):
         forest.add(second)
 
 pq = PriorityQueue()
-for node in forest:            # add all edges which are connected already
+for node in forest:            # add all edges which are already connected 
     for edge in graph[node]:
         pq.put(edge)
 
@@ -47,6 +47,7 @@ while not pq.empty():
         non_tree_node = min_edge.first
     if non_tree_node is None:
         continue
+        
     forest.add(non_tree_node)
     for edge in graph[non_tree_node]:
         pq.put(edge)
@@ -55,4 +56,5 @@ while not pq.empty():
     if budget_used + min_edge.weight > budget:
         break
     budget_used += min_edge.weight
+    
 print(f'Budget used: {budget_used}')
