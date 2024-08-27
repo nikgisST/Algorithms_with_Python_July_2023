@@ -1,4 +1,4 @@
-def find_root(parent, node):       # Kruskal's algorithm
+def find_root(parent, node):       # Minimum Spanning Forest (MSF): Kruskal's algorithm
     while node != parent[node]:   # parent for 3 is 2 (p[3] = 2), for 2 is 0 (p[2] = 0) and for 0 is 0 (p[0] = 0)
         node = parent[node]
     return node
@@ -31,7 +31,7 @@ print(f'Total cost: {total_cost}')
 ############################################################################################################
 
 
-from queue import PriorityQueue    # Prim's algorithm
+from queue import PriorityQueue    # Minimum Spanning Forest (MSF): Prim's algorithm
 
 
 class Edge:
