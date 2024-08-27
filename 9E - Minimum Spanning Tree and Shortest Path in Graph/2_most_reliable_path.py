@@ -1,4 +1,4 @@
-from collections import deque       # Dijkstra's algorithm
+from collections import deque       # shortest paths in graph: Dijkstra's algorithm
 from queue import PriorityQueue
 
 # class Node:
