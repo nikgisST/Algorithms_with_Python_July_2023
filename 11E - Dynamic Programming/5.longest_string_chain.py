@@ -1,4 +1,4 @@
-from collections import deque         # Longest Inscreasing Subsequence
+from collections import deque         # Longest Increasing Subsequence
 
 words = input().split()
 
