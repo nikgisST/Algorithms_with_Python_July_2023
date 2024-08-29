@@ -1,12 +1,15 @@
-from collections import deque
+from collections import deque     # Longest Increasing Subsequence
 
 
 nums = [int(x) for x in input().split()]
 
-dp = [[0] * len(nums) for _ in range(2)]
-parent = [[None] * len(nums) for _ in range(2)]
+dp = []
+[dp.append([0] * len(nums)) for _ in range(2)]      #dp = [[0] * len(nums) for _ in range(2)]
 
-dp[0][0] = dp[1][0] = 1   # base case
+parent = []
+[parent.append([None] * len(nums)) for _ in range(2)]   #parent = [[None] * len(nums) for _ in range(2)]
+
+dp[0][0] = dp[1][0] = 1   # base case - базовото решение
 
 best_size = 0
 best_row = 0
@@ -14,8 +17,6 @@ best_col = 0
 
 for current_idx in range(1, len(nums)):
     current_number = nums[current_idx]
-    current_size = 1
-
     for prev_idx in range(current_idx - 1, -1, -1):
         prev_number = nums[prev_idx]
 
