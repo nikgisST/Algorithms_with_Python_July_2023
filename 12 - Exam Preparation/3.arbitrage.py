@@ -23,8 +23,9 @@ start_node = input()
 distance = {node: float('-inf') for node in nodes}
 distance[start_node] = 1
 parent = {node: None for node in nodes}
+
 ############################### BELLMAN-FORD ####################################
-for _ in range(len(nodes) - 1):
+for _ in range(len(nodes) - 1):      # (v - 1) times
     for (source, destination, weight) in graph:
         new_distance = distance[source] * weight
         if new_distance > distance[destination]:
